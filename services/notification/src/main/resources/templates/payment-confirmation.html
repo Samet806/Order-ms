@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Confirmation</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Payment Confirmation</h1>
+    <p>Dear <strong th:text="${customerName}"></strong>,</p>
+    <p>We are happy to inform you that your payment has been successfully processed.</p>
+    <p>
+        <strong>Payment Details:</strong><br>
+        Amount Paid: <span th:text="${amount}"></span><br>
+        Order Reference: <span th:text="${orderReference}"></span>
+    </p>
+    <p>Thank you for your payment and choosing our service!</p>
+    <div class="footer">
+        &copy; 2024 Your Company Name
+    </div>
+</div>
+</body>
+</html>

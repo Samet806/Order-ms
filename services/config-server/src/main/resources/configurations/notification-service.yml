@@ -1,0 +1,40 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://samet:samet@localhost:27017/customer?authSource=admin
+
+  kafka:
+    consumer:
+      bootstrap-servers: ms_kafka:9092
+      group-id: paymentGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+        spring.json.type.mapping:
+          orderConfirmation:com.meta.notification.kafka.order.OrderConfirmation,
+          paymentConfirmation:com.meta.notification.kafka.payment.PaymentConfirmation
+
+  mail:
+    host: localhost
+    port: 1025
+    username: samet
+    password: samet
+    properties:
+      mail.smtp:
+        auth: true
+        starttls.enable: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+
+server:
+  port: 9095

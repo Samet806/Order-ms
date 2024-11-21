@@ -1,0 +1,46 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9098/realms/micro-services"
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Eureka üzerinden dinamik servis keşfi aktif
+          lower-case-service-id: true # Servis isimlerini küçük harf olarak ayarla
+      routes:
+        - id: customer-service
+          uri: lb://CUSTOMER-SERVICE
+          predicates:
+            - Path=/api/v1/customers/**
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/v1/orders/**
+        - id: order-lines-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/v1/orderlines/**
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/products/**
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/v1/payments/**
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka/ # Eureka Server URL
+      register-with-eureka: true # Gateway, Eureka'ya kaydolacak
+      fetch-registry: true # Gateway servisleri Eureka'dan keşfedecek
+    instance:
+      prefer-ip-address: true # IP adresini kullan
+
+server:
+  port: 8222

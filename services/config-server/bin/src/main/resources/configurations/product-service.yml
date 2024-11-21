@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    baseline-on-migrate: true  # İlk migrasyonun başlatılmasını sağlar
+    baseline-version: 1  # İlk sürüm numarasını belirtin
+    locations : classpath:/db/migration
+server:
+  port: 8092
